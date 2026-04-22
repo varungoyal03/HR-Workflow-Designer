@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  hr-workflow:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hr-workflow-app
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    networks:
+      - hr-workflow-network
+
+networks:
+  hr-workflow-network:
+    driver: bridge

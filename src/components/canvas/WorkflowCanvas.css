@@ -1,0 +1,271 @@
+.workflow-designer {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  overflow: hidden;
+  background: transparent;
+}
+
+.workflow-canvas {
+  flex: 1;
+  position: relative;
+  background: transparent;
+}
+
+.react-flow__node {
+  transition: none !important;
+  will-change: transform;
+}
+
+.react-flow__node.auto-layout-animating {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.react-flow__edge path,
+.react-flow__edge-path,
+.react-flow__edge svg {
+  transition: none !important;
+}
+
+.react-flow__node.dragging {
+  cursor: grabbing !important;
+  opacity: 0.8;
+}
+
+.react-flow__node.dragging * {
+  pointer-events: none;
+}
+
+.react-flow__attribution {
+  font-size: 10px;
+  opacity: 0.4;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 12px 14px;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  max-width: calc(100vw - 340px);
+}
+
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(249, 250, 251, 0.9) 100%);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.toolbar-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.toolbar-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(59, 130, 246, 0.4);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2), 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.toolbar-btn:hover:not(:disabled)::before {
+  opacity: 1;
+}
+
+.toolbar-btn.primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border-color: rgba(37, 99, 235, 0.3);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4), 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+.toolbar-btn.primary::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+}
+
+.toolbar-btn.primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.5), 0 4px 16px rgba(59, 130, 246, 0.3);
+  transform: translateY(-3px) scale(1.03);
+}
+
+.toolbar-btn.danger {
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.toolbar-btn.danger:hover:not(:disabled) {
+  background: #fee;
+  border-color: #fca5a5;
+}
+
+.toolbar-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.validation-panel {
+  background: white;
+  padding: 12px 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  backdrop-filter: blur(10px);
+  max-width: 320px;
+}
+
+.validation-errors {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #dc2626;
+}
+
+.error-badge {
+  padding: 6px 10px;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: #dc2626;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.2);
+}
+
+.warning-badge {
+  padding: 6px 10px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #92400e;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(146, 64, 14, 0.2);
+}
+
+.validation-details {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.validation-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  transition: all 0.2s;
+}
+
+.validation-message.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.validation-message.warning {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #78350f;
+}
+
+.validation-message:hover {
+  transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.validation-icon {
+  flex-shrink: 0;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.validation-text {
+  flex: 1;
+  word-break: break-word;
+}
+
+/* React Flow Customizations */
+.react-flow__node {
+  cursor: pointer;
+}
+
+.react-flow__edge {
+  cursor: pointer;
+}
+
+.react-flow__edge-path {
+  stroke: #94a3b8;
+  stroke-width: 2.5;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: #3b82f6;
+  stroke-width: 3.5;
+}
+
+.react-flow__minimap {
+  background: #ffffff !important;
+  border: 2px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  width: 200px !important;
+  height: 150px !important;
+  bottom: 20px !important;
+  right: 20px !important;
+}
+
+.react-flow__minimap-mask {
+  fill: rgb(240, 240, 240) !important;
+  fill-opacity: 0.6 !important;
+}
+
+.react-flow__controls {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.react-flow__controls button {
+  background: white;
+  border: none;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+  transition: all 0.2s;
+}
+
+.react-flow__controls button:hover {
+  background: #f3f4f6;
+}
+
+.react-flow__controls button:last-child {
+  border-bottom: none;
+}
